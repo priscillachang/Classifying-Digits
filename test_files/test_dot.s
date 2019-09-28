@@ -3,8 +3,8 @@
 
 # Set vector values for testing
 .data
-vector0: .word 1 2 3 4 5 6 7 8 9
-vector1: .word 1 2 3 4 5 6 7 8 9
+vector0: .word 1 1 1 1 1 1 1
+vector1: .word 1 1 1 1 1 1 1
 
 
 .text
@@ -15,9 +15,9 @@ main:
     la s1 vector1
 
     # Set vector attributes
-    li a2 3
-    li a3 1
-    li a4 2
+    li a2 5        # VECTOR LENGTH
+    li a3 1        # v0 STRIDE
+    li a4 1        # v1 STRIDE
 
     # Call dot function
     mv a0 s0

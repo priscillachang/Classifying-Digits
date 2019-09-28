@@ -3,7 +3,7 @@
 
 # Set vector values for testing
 .data
-m0: .word 1 -2 3 -4 5 -6 7 -8 9 # MAKE CHANGES HERE
+m0: .word -1 -2 -3 -0 1 2 3 300 -200 -999 23 -1 # MAKE CHANGES HERE
 
 
 .text
@@ -13,8 +13,8 @@ main:
     la s0 m0
 
     # Set dimensions of m0
-    li s1 3 # MAKE CHANGES HERE
-    li s2 3 # MAKE CHANGES HERE
+    li s1 2 # MAKE CHANGES HERE
+    li s2 6 # MAKE CHANGES HERE
 
     # Print m0 before running relu
     mv a0 s0
