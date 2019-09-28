@@ -15,20 +15,22 @@ main:
     la s1 vector1
 
     # Set vector attributes
-    
-
+    li a2 9
+    li a3 4
+    li a4 4
 
     # Call dot function
-    
+    mv a0 s0
+    mv a1 s1
+    jal ra dot
 
-
-    # Print integer result
-
-
+    # Print the output of argmax
+    mv a1 a0
+    jal ra print_int
 
     # Print newline
-
-
+    li a1 '\n'
+    jal ra print_char
 
     # Exit
     jal exit
