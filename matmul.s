@@ -88,24 +88,6 @@ inner_loop_start:
     mul t2 t1 s5
     add t2 t2 t0
 
-
-    addi sp sp -8
-    sw a0 0(sp)
-    sw a1 4(sp)
-    li a0 11
-    li a1 'A'
-    ecall
-    li a0 1
-    mv a1 t2
-    ecall
-    li a0 11
-    li a1 '\n'
-    ecall
-    lw a0 0(sp)
-    lw a1 4(sp)
-    addi sp sp 8
-
-
     slli t2 t2 2
     add t2 t2 s6
     sw a0 0(t2)

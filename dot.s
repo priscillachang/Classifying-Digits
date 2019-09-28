@@ -33,27 +33,6 @@ loop_start:
     lw t1 0(t3)             # t1: Value at curr v0 index
     lw t2 0(t4)             # t2: Value at curr v1 index
 
-    ##DEBUG##
-     addi sp sp -8
-     sw a0 0(sp)
-     sw a1 4(sp)
-     li a0 1
-     mv a1 t1
-     ecall
-     li a0 11
-     li a1 ' '
-     ecall
-     li a0 1
-     mv a1 t2
-     ecall
-     li a0 11
-     li a1 '\n'
-     ecall
-     lw a0 0(sp)
-     lw a1 4(sp)
-     addi sp sp 8
-    #########
-
     mul t5 t1 t2            # t5: 2-Element Product = t1 * t2
     add t0 t0 t5            # Sum += Product
 
