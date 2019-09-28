@@ -111,8 +111,7 @@ outer_loop_end:
     lw s6 24(sp)
     lw ra 28(sp)
     addi sp sp 32
-
-    ret
+    ret 
 
 mismatched_dimensions:
     li a1 2
