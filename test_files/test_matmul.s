@@ -4,8 +4,8 @@
 
 # static values for testing
 .data
-m0: .word 1 2 3 4 5 6 7 8 9
-m1: .word 1 2 3 4 5 6 7 8 9
+m0: .word 1 2 3 4 5 6 7 8 9 10 11 12
+m1: .word 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 d: .word 0 0 0 0 0 0 0 0 0 # allocate static space for output
 
 .text
@@ -14,15 +14,15 @@ main:
     la s0 m0
     la s1 m1
     la s2 d
-    li s3 3
-    li s4 3
+    li s3 4
+    li s4 5
     la a0 m0
     la a3 m1
     la a6 d
-    li a1 3
+    li a1 4
     li a2 3
     li a4 3
-    li a5 3
+    li a5 5
 
     # Call matrix multiply, m0 * m1
     jal ra matmul
