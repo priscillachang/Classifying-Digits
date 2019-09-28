@@ -43,5 +43,4 @@ loop_end:
     mv a0 t0
 
     # Epilogue
-
     ret
