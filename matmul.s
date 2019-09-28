@@ -41,9 +41,9 @@ matmul:
     mv s6 a6
 
 outer_loop_start:
-    li t0 0                             # INNER INDEX
-    li t1 0                             # OUTER INDEX
-    li t2 0                             # For Indexing Output array
+    li t0 0                             # Inner Indexer
+    li t1 0                             # Outer Indexer
+    li t2 0                             # Output Indexer
 
 inner_loop_start:
     bge t1 s1 outer_loop_end
@@ -59,8 +59,8 @@ inner_loop_start:
     add a1 a1 s3                        # Start of v1
 
     mv a2 s2                            # Dot Product input: m0 rowlength
-    li a3 1                             # Stride: 1
-    mv a4 s5                            # Stride: m1 rowlength
+    li a3 1                             # v0 Stride: 1
+    mv a4 s5                            # v1 Stride: m1 rowlength
 
     # STORE THINGS
     addi sp sp -32
@@ -111,7 +111,7 @@ outer_loop_end:
     lw s6 24(sp)
     lw ra 28(sp)
     addi sp sp 32
-    ret 
+    ret
 
 mismatched_dimensions:
     li a1 2
