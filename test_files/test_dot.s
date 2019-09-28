@@ -15,9 +15,9 @@ main:
     la s1 vector1
 
     # Set vector attributes
-    li a2 9
-    li a3 4
-    li a4 4
+    li a2 3
+    li a3 1
+    li a4 2
 
     # Call dot function
     mv a0 s0
