@@ -99,8 +99,6 @@ inner_loop_start:
 inner_loop_end:
     li t0 0
     addi t1 t1 1
-    #add a0 a0 s2
-    #addi a1 a1 1
     j inner_loop_start
 
 outer_loop_end:
