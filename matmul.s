@@ -1,4 +1,3 @@
-.import ../utils.s
 .globl matmul
 
 .text
@@ -48,7 +47,7 @@ outer_loop_start:
 
 inner_loop_start:
     bge t1 s1 outer_loop_end
-    bge t0 s2 inner_loop_end
+    bge t0 s5 inner_loop_end
 
     # Prepare for dot subroutine
     mul a0 t1 s2
@@ -86,9 +85,27 @@ inner_loop_start:
     addi sp sp 32
 
     # Compute index of output array
-    li t2 0
-    mul t2 t1 s1
+    mul t2 t1 s5
     add t2 t2 t0
+
+
+    addi sp sp -8
+    sw a0 0(sp)
+    sw a1 4(sp)
+    li a0 11
+    li a1 'A'
+    ecall
+    li a0 1
+    mv a1 t2
+    ecall
+    li a0 11
+    li a1 '\n'
+    ecall
+    lw a0 0(sp)
+    lw a1 4(sp)
+    addi sp sp 8
+
+
     slli t2 t2 2
     add t2 t2 s6
     sw a0 0(t2)
