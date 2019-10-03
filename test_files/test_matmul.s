@@ -14,15 +14,15 @@ main:
     la s0 m0
     la s1 m1
     la s2 d
-    li s3 4
-    li s4 5
+    li s3 2
+    li s4 9
     la a0 m0
     la a3 m1
     la a6 d
-    li a1 4
-    li a2 3
-    li a4 3
-    li a5 5
+    li a1 2
+    li a2 1
+    li a4 1
+    li a5 9
 
     # Call matrix multiply, m0 * m1
     jal ra matmul
