@@ -52,7 +52,9 @@ read_matrix:
 		bne a0 a3 eof_or_error
 
 		# Prepare for malloc
-		mul s3 s1 s2                 # s3 = Matrix Size
+		lw t0 0(s1)
+		lw t1 0(s2)
+		mul s3 t0 t1                 # s3 = Matrix Size
 		slli a0 s3 2                 # malloc Arg0: Size to malloc
 		jal malloc
 
