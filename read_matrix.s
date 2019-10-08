@@ -28,9 +28,8 @@ read_matrix:
 		sw s4 16(sp)
 
 		mv s0 a0                     # s0 = Filename
-		mv s1 a1                     # s1 = NumRows
-		mv s2 a2                     # s2 = NumCols
-		mul s3 s1 s2                 # s3 = Matrix Size
+		mv s1 a1                     # s1 = Pointer to NumRows
+		mv s2 a2                     # s2 = Pointer to NumCols
 
 		# Prepare for fopen
 		mv a1 s0                     # fopen Arg1: Filename
@@ -38,8 +37,23 @@ read_matrix:
 		jal fopen
 		mv s4 a0                     # s4 = File Descriptor
 
+		# Get num rows
+		mv a1 s4                     # fread Arg1: File Descriptor
+		mv a2 s1                     # fread Arg2: Read bytes into here
+		li a3 4                      # fread Arg3: Read 4 bytes at a time
+		jal fread
+		bne a0 a3 eof_or_error
+
+		# Get num cols
+		mv a1 s4                     # fread Arg1: File Descriptor
+		mv a2 s2                     # fread Arg2: Read bytes into here
+		li a3 4                      # fread Arg3: Read 4 bytes at a time
+		jal fread
+		bne a0 a3 eof_or_error
+
 		# Prepare for malloc
-		mv a0 s3                     # malloc Arg0: Size to malloc
+		mul s3 s1 s2                 # s3 = Matrix Size
+		slli a0 s3 2                 # malloc Arg0: Size to malloc
 		jal malloc
 
 		li t0 0                      # Counter
