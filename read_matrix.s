@@ -32,14 +32,14 @@ read_matrix:
 		mv s2 a2                     # s2 = NumCols
 		mul s3 s1 s2                 # s3 = Matrix Size
 
-		# Preparing for fopen ecall
-		mv a1 a0                     # Arg: Filename
-		li a2 0                      # Arg: Read-Only Permission
+		# Prepare for fopen
+		mv a1 s0                     # fopen Arg1: Filename
+		li a2 0                      # fopen Arg2: Read-Only Permission
 		jal fopen
 		mv s4 a0                     # s4 = File Descriptor
 
-		# Preparing for malloc
-		mv a0 s3                     # Arg: Size to malloc
+		# Prepare for malloc
+		mv a0 s3                     # malloc Arg0: Size to malloc
 		jal malloc
 
 		li t0 0                      # Counter
@@ -48,24 +48,26 @@ loop:
 		# Prepare for ecall
 		bne a0 a3 eof_or_error
 		bge t0 s3 end
-		mv a1 s4
-		mv a2 t1
-		li a3 4
-		addi sp sp -8
 
+		# Prepare for fread
+		mv a1 s4                     # fread Arg1: File Descriptor
+		mv a2 t1                     # fread Arg2: Read bytes into here
+		li a3 4                      # fread Arg3: Read 4 bytes at a time
+
+		addi sp sp -8
 		sw t0 0(sp)
-		sw t1 0(sp)
+		sw t1 4(sp)
 		jal fread
 		lw t0 0(sp)
-		lw t1 0(sp)
-
+		lw t1 4(sp)
 		addi sp sp 8
-		addi t0 t0 1
-		addi t1 t1 4
+
+		addi t0 t0 1                 # Counter++
+		addi t1 t1 4	               # Increm matrix pointer
 end:
-		mv a1 s4
+		mv a1 s4                     # fclose Arg1: File Descriptor
 		jal fclose
-		bne a0 x0 eof_or_error
+		bne a0 x0 eof_or_error       # Unsuccessful fclose
 
     # Epilogue
 		lw s0 0(sp)
