@@ -19,12 +19,14 @@
 read_matrix:
 
     # Prologue
-		addi sp sp -20
+		addi sp sp -28
 		sw s0 0(sp)
 		sw s1 4(sp)
 		sw s2 8(sp)
 		sw s3 12(sp)
 		sw s4 16(sp)
+		sw s5 20(sp)
+		sw ra 24(sp)
 
 		mv s0 a0                     # s0 = Filename
 		mv s1 a1                     # s1 = Pointer to NumRows
@@ -59,9 +61,10 @@ read_matrix:
 
 		li t0 0                      # Counter
 		mv t1 a0                     # Pointer to buffer
+		mv s5 a0
+
 loop:
 		# Prepare for ecall
-		bne a0 a3 eof_or_error
 		bge t0 s3 end
 
 		# Prepare for fread
@@ -76,13 +79,16 @@ loop:
 		lw t0 0(sp)
 		lw t1 4(sp)
 		addi sp sp 8
+		bne a0 a3 eof_or_error
 
 		addi t0 t0 1                 # Counter++
 		addi t1 t1 4	               # Increm matrix pointer
+		j loop
 end:
 		mv a1 s4                     # fclose Arg1: File Descriptor
 		jal fclose
 		bne a0 x0 eof_or_error       # Unsuccessful fclose
+		mv a0 s5
 
     # Epilogue
 		lw s0 0(sp)
@@ -90,7 +96,9 @@ end:
 		lw s2 8(sp)
 		lw s3 12(sp)
 		lw s4 16(sp)
-		addi sp sp 20
+		lw s5 20(sp)
+		lw ra 24(sp)
+		addi sp sp 28
     ret
 
 eof_or_error:

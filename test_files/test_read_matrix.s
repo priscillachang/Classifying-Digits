@@ -17,14 +17,6 @@ main:
 
     la a0 file_path
 
-    addi sp sp -4
-    sw a0 0(sp)
-    mv a1 a0
-    jal print_str
-    lw a0 0(sp)
-    addi sp sp 4
-
-
     addi sp sp -8
     sw a1 0(sp)
     sw a2 4(sp)
