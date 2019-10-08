@@ -2,7 +2,7 @@
 .import ../utils.s
 
 .data
-v0: .word -9 -0 # MAKE CHANGES HERE
+v0: .word -9 -8 -63 -88 -4 -2 -99 # MAKE CHANGES HERE
 
 .text
 main:
@@ -10,7 +10,7 @@ main:
     la s0 v0
 
     # Set length of v0
-    addi s1 x0 2 # MAKE CHANGES HERE
+    addi s1 x0 7 # MAKE CHANGES HERE
 
     # Call argmax
     mv a0 s0
