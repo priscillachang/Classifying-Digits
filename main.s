@@ -100,23 +100,26 @@ main:
     # =====================================
     # Write output matrix
     lw a0 16(s0) # Load pointer to output filename
-
-
-
-
+    mv a1 s3
+    mv a2 t2
+    mv a3 t5
+    jal save
+    jal write_matrix
+    jal load
 
     # =====================================
     # CALCULATE CLASSIFICATION/LABEL
     # =====================================
     # Call argmax
-
-
-
+    mv a0 s3
+    mul a1 t2 t5
+    jal save
+    jal argmax
+    jal load
 
     # Print classification
-
-
-
+    mv a1 a0
+    jal print_int
 
     # Print newline afterwards for clarity
     li a1 '\n'
