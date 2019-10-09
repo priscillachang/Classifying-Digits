@@ -80,12 +80,13 @@ main:
     # 1. LINEAR LAYER:    m0 * input
     # 2. NONLINEAR LAYER: ReLU(m0 * input)
     # 3. LINEAR LAYER:    m1 * ReLU(m0 * input)
+
+    # Prepare for first matmul
     mv a1 t0                # Arg1: M0 rows
     mv a2 t1                # Arg2: M0 cols
     mv a3 s2                # Arg3: INPUT
     mv a4 t4                # Arg4: INPUT rows
     mv a5 t5                # Arg5: INPUT cols
-
     mul a0 t0 t5
     jal save
     jal malloc
@@ -95,21 +96,32 @@ main:
     jal save
     jal matmul
     jal load
+
+    # Prepare for ReLU
     mv a0 a6
     mul a1 t0 t5
     jal save
     jal ReLU
     jal load
-    mv a1 t2
-    mv a2 t3
-    mv a3 a0
-    mv a0 s1
-    mv a4 t0
-    mv a5 t5
-    
 
+    # Prepare for next matmul
+    mv a1 t2                # Arg1: M1 rows
+    mv a2 t3                # Arg2: M1 cols
+    mv a3 a0                # Arg3: ReLU(M0 * Input)
+    mv a4 t0                # Arg4: RELU(M0 * Input) rows
+    mv a5 t5                # Arg5: RELU(M0 * Input) cols
 
+    mul a0 t2 t5
+    jal save
+    jal malloc
+    jal load
+    mv a6 a0
+    mv a0 s1                # Arg0: M0
+    jal save
+    jal matmul
+    jal load
 
+    mv s3 a6
 
     # =====================================
     # WRITE OUTPUT
