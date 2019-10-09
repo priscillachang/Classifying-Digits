@@ -39,11 +39,6 @@ write_matrix:
     sw s2 0(s5)
     sw s3 4(s5)
 
-    lw a1 0(s5)
-    jal print_int
-    lw a1 4(s5)
-    jal print_int
-
 		# Prepare for fopen
 		mv a1 s0                     # fopen Arg1: Filename
 		li a2 1                      # fopen Arg2: Write Permission

@@ -8,6 +8,9 @@
 
 .globl main
 
+.data
+debug: .asciiz "DEBUG"
+
 .text
 main:
     # =====================================
@@ -23,7 +26,7 @@ main:
     # Exit if incorrect number of command line args
     li t0 5
     bne a0 t0 error
-    mv s5 a1                 # s5 = argv
+    mv s6 a1                 # s6 = argv
 
 	  # =====================================
     # LOAD MATRICES
@@ -31,47 +34,65 @@ main:
 
     # Load pretrained m0
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a1 a0                 # Pointer to rows
+    mv s4 a0
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a2 a0                 # Pointer to columns
-    lw a0 4(s5)              # Read M0_PATH
+    mv s5 a0
+    lw a0 4(s6)              # Read M0_PATH
     jal save
     jal read_matrix
     jal load
-    lw t0 0(a1)              # t0: M0 rows (TENTATIVE)
-    lw t1 0(a2)              # t1: M0 cols (TENTATIVE)
+    lw t0 0(s4)              # t0: M0 rows (TENTATIVE)
+    lw t1 0(s5)              # t1: M0 cols (TENTATIVE)
     mv s0 a0                 # s0 = M0
 
     # Load pretrained m1
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a1 a0                 # Pointer to rows
+    mv s4 a0
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a2 a0                 # Pointer to columns
-    lw a0 8(s5)              # Read M1_PATH
+    mv s5 a0
+    lw a0 8(s6)              # Read M1_PATH
     jal save
     jal read_matrix
     jal load
-    lw t2 0(a1)              # t2: M1 rows (TENTATIVE)
-    lw t3 0(a2)              # t3: M1 cols (TENTATIVE)
+    lw t2 0(s4)              # t2: M1 rows (TENTATIVE)
+    lw t3 0(s5)              # t3: M1 cols (TENTATIVE)
     mv s1 a0                 # s1 = M1
 
     # Load input matrix
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a1 a0                 # Pointer to rows
+    mv s4 a0
     li a0 4
+    jal save
     jal malloc
+    jal load
     mv a2 a0                 # Pointer to columns
-    lw a0 12(s5)             # Read INPUT
+    mv s5 a0
+    lw a0 12(s6)             # Read INPUT
     jal save
     jal read_matrix
     jal load
-    lw t4 0(a1)              # t4: INPUT rows (TENTATIVE)
-    lw t5 0(a2)              # t5: INPUT cols (TENTATIVE)
+    lw t4 0(s4)              # t4: INPUT rows (TENTATIVE)
+    lw t5 0(s5)              # t5: INPUT cols (TENTATIVE)
     mv s2 a0                 # s2 = INPUT
 
     # =====================================
@@ -88,6 +109,7 @@ main:
     mv a4 t4                # Arg4: INPUT rows
     mv a5 t5                # Arg5: INPUT cols
     mul a0 t0 t5
+    slli a0 a0 2
     jal save
     jal malloc
     jal load
@@ -112,6 +134,7 @@ main:
     mv a5 t5                # Arg5: RELU(M0 * Input) cols
 
     mul a0 t2 t5
+    slli a0 a0 2
     jal save
     jal malloc
     jal load
@@ -127,7 +150,7 @@ main:
     # WRITE OUTPUT
     # =====================================
     # Write output matrix
-    lw a0 16(s0) # Load pointer to output filename
+    lw a0 16(s6) # Load pointer to output filename
     mv a1 s3
     mv a2 t2
     mv a3 t5
