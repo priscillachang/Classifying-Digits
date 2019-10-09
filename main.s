@@ -101,7 +101,7 @@ main:
     mv a0 a6
     mul a1 t0 t5
     jal save
-    jal ReLU
+    jal relu
     jal load
 
     # Prepare for next matmul

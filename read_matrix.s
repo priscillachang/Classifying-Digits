@@ -36,6 +36,8 @@ read_matrix:
 		mv a1 s0                     # fopen Arg1: Filename
 		li a2 0                      # fopen Arg2: Read-Only Permission
 		jal fopen
+		li t0 -1
+		bne a0 t0 eof_or_error
 		mv s4 a0                     # s4 = File Descriptor
 
 		# Get num rows
