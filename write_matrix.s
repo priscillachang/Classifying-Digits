@@ -34,10 +34,10 @@ write_matrix:
 		mv s2 a2                     # s2 = NumRows
     mv s3 a3                     # s3 = NumCols
     li a0 8
-    jal malloc                 # Store in a place
-    sw s2 0(a0)
-    sw s3 4(a0)
+    jal malloc                   # Store in a place
     mv s5 a0
+    sw s2 0(s5)
+    sw s3 4(s5)
 
     lw a1 0(s5)
     jal print_int
@@ -69,30 +69,12 @@ write_matrix:
     mv t1 a1                    # Buffer to read from
     mul s3 s2 s3                # Number of elems
 
-    li a1 'a'
-    jal print_char
-
     mv a1 s4                    # Write number of columns
-    mv a2 s1                      #
+    mv a2 s1                    #
     mv a3 s3                    # Read s3 things
     li a4 4                     # Size of thing
     jal fwrite
     blt a0 a3 eof_or_error
-    li a1 'a'
-    jal print_char
-    j end
-loop:
-    bge t0 s3 end
-    mv a1 s4                    # Counter
-    mv a2 t1                    # Buffer to read from
-    li a3 1                     # Nunber of elems
-    li a4 4                     # Size of thing
-    jal fwrite
-    blt a0 a3 eof_or_error
-
-    addi t0 t0 1
-    addi t1 t1 4
-    j loop
 
 end:
     mv a1 s4                     # fclose Arg1: File Descriptor
