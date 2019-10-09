@@ -21,7 +21,8 @@ main:
     #   main.s <M0_PATH> <M1_PATH> <INPUT_PATH> <OUTPUT_PATH>
 
     # Exit if incorrect number of command line args
-    bne a0 5 error
+    li t0 5
+    bne a0 t0 error
     mv s5 a1                 # s5 = argv
 
 	  # =====================================
@@ -136,6 +137,8 @@ save:
     sw t4 16(sp)
     sw t5 20(sp)
     sw t6 24(sp)
+    sw a1 32(sp)
+    sw a2 36(sp)
     jr ra
 
 load:
@@ -146,5 +149,7 @@ load:
     lw t4 16(sp)
     lw t5 20(sp)
     lw t6 24(sp)
+    lw a1 32(sp)
+    lw a2 36(sp)
     addi sp sp 40
     jr ra
