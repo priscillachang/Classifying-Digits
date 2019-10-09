@@ -8,7 +8,11 @@ file_path: .asciiz "test_output.bin"
 .text
 main:
     # Write the matrix to a file
-
+    la a0 file_path
+    la a1 m0
+    li a2 3
+    li a3 3
+    jal write_matrix
 
     # Exit the program
     addi a0 x0 10
