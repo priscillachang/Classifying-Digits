@@ -2,7 +2,7 @@
 .import ../utils.s
 
 .data
-m0: .word 1, 2, 3, 4, 5, 6, 7, 8, 9 # MAKE CHANGES HERE
+m0: .word 1, 2, 3, 4, 5, 6, 7, 8# MAKE CHANGES HERE
 file_path: .asciiz "test_output.bin"
 
 .text
@@ -10,8 +10,8 @@ main:
     # Write the matrix to a file
     la a0 file_path
     la a1 m0
-    li a2 3
-    li a3 3
+    li a2 8
+    li a3 1
     jal write_matrix
 
     # Exit the program
