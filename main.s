@@ -36,7 +36,7 @@ main:
     li a0 4
     jal malloc
     mv a2 a0                 # Pointer to columns
-    mv a0 4(s5)              # Read M0_PATH
+    lw a0 4(s5)              # Read M0_PATH
     jal save
     jal read_matrix
     jal load
@@ -51,7 +51,7 @@ main:
     li a0 4
     jal malloc
     mv a2 a0                 # Pointer to columns
-    mv a0 8(s5)              # Read M1_PATH
+    lw a0 8(s5)              # Read M1_PATH
     jal save
     jal read_matrix
     jal load
@@ -66,7 +66,7 @@ main:
     li a0 4
     jal malloc
     mv a2 a0                 # Pointer to columns
-    mv a0 12(s5)             # Read INPUT
+    lw a0 12(s5)             # Read INPUT
     jal save
     jal read_matrix
     jal load
