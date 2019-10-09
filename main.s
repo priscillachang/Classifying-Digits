@@ -80,18 +80,16 @@ main:
     # 1. LINEAR LAYER:    m0 * input
     # 2. NONLINEAR LAYER: ReLU(m0 * input)
     # 3. LINEAR LAYER:    m1 * ReLU(m0 * input)
-
-
-
-
-
-
-
-
-
-
-
-
+    jal save
+    mv a0 s0
+    mv a1 t0
+    mv a2 t1
+    mv a3 s2
+    mv a4 t4
+    mv a5 t5
+    mv a6 x0                # a6 = m0 * input
+    jal matmul
+    jal load
 
 
 
