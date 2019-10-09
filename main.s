@@ -36,11 +36,11 @@ main:
     jal malloc
     mv a2 a0                 # Pointer to columns
     mv a0 4(s5)              # Read M0_PATH
-
     jal save
     jal read_matrix
     jal load
-
+    lw t0 0(a1)              # t0: M0 rows (TENTATIVE)
+    lw t1 0(a2)              # t1: M0 cols (TENTATIVE)
     mv s0 a0                 # s0 = M0
 
     # Load pretrained m1
@@ -54,6 +54,8 @@ main:
     jal save
     jal read_matrix
     jal load
+    lw t2 0(a1)              # t2: M1 rows (TENTATIVE)
+    lw t3 0(a2)              # t3: M1 cols (TENTATIVE)
     mv s1 a0                 # s1 = M1
 
     # Load input matrix
@@ -67,6 +69,8 @@ main:
     jal save
     jal read_matrix
     jal load
+    lw t4 0(a1)              # t4: INPUT rows (TENTATIVE)
+    lw t5 0(a2)              # t5: INPUT cols (TENTATIVE)
     mv s2 a0                 # s2 = INPUT
 
     # =====================================
