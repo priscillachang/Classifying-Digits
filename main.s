@@ -95,6 +95,19 @@ main:
     jal save
     jal matmul
     jal load
+    mv a0 a6
+    mul a1 t0 t5
+    jal save
+    jal ReLU
+    jal load
+    mv a1 t2
+    mv a2 t3
+    mv a3 a0
+    mv a0 s1
+    mv a4 t0
+    mv a5 t5
+    
+
 
 
 
