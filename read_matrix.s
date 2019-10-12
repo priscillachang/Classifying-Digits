@@ -60,15 +60,15 @@ read_matrix:
 		lw t0 0(s1)
 		lw t1 0(s2)
 		mul s3 t0 t1                 # s3 = Matrix Size
-		slli a0 s3 2                 # malloc Arg0: Size to malloc
+		slli s3 s3 2
+		mv a0 s3                     # malloc Arg0: Size to malloc
 		jal malloc
 
 		mv s5 a0                     # s5: Pointer to matrix head
 
 		mv a1 s4                     # fread Arg1: File Descriptor
 		mv a2 s5                     # fread Arg2: Read bytes into here
-		mv a3 s3                     # fread Arg3: Read s3 elems
-		slli a3 a3 2                 # 4 bytes each
+		mv a3 s3                     # fread Arg3: Read s3 bytes
 		jal fread
 		bne a0 s3 eof_or_error
 
