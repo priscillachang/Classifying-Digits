@@ -63,30 +63,15 @@ read_matrix:
 
 		li t0 0                      # Counter
 		mv t1 a0                     # Pointer to buffer
-		mv s5 a0
+		mv s5 a0                     # s5: Pointer to matrix head
 
-loop:
-		# Prepare for ecall
-		bge t0 s3 end
-
-		# Prepare for fread
 		mv a1 s4                     # fread Arg1: File Descriptor
 		mv a2 t1                     # fread Arg2: Read bytes into here
-		li a3 4                      # fread Arg3: Read 4 bytes at a time
-
-		addi sp sp -8
-		sw t0 0(sp)
-		sw t1 4(sp)
+		mv a3 s3                     # fread Arg3: Read s3 elems
+		slli a3 a3 2                 # 4 bytes each
 		jal fread
-		lw t0 0(sp)
-		lw t1 4(sp)
-		addi sp sp 8
 		bne a0 a3 eof_or_error
 
-		addi t0 t0 1                 # Counter++
-		addi t1 t1 4	               # Increm matrix pointer
-		j loop
-end:
 		mv a1 s4                     # fclose Arg1: File Descriptor
 		jal fclose
 		bne a0 x0 eof_or_error       # Unsuccessful fclose
