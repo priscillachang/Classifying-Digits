@@ -45,14 +45,16 @@ read_matrix:
 		mv a2 s1                     # fread Arg2: Read bytes into here
 		li a3 4                      # fread Arg3: Read 4 bytes at a time
 		jal fread
-		bne a0 a3 eof_or_error
+		li t0 4
+		bne a0 t0 eof_or_error
 
 		# Get num cols
 		mv a1 s4                     # fread Arg1: File Descriptor
 		mv a2 s2                     # fread Arg2: Read bytes into here
 		li a3 4                      # fread Arg3: Read 4 bytes at a time
 		jal fread
-		bne a0 a3 eof_or_error
+		li t0 4
+		bne a0 t0 eof_or_error
 
 		# Prepare for malloc
 		lw t0 0(s1)
@@ -61,16 +63,14 @@ read_matrix:
 		slli a0 s3 2                 # malloc Arg0: Size to malloc
 		jal malloc
 
-		li t0 0                      # Counter
-		mv t1 a0                     # Pointer to buffer
 		mv s5 a0                     # s5: Pointer to matrix head
 
 		mv a1 s4                     # fread Arg1: File Descriptor
-		mv a2 t1                     # fread Arg2: Read bytes into here
+		mv a2 s5                     # fread Arg2: Read bytes into here
 		mv a3 s3                     # fread Arg3: Read s3 elems
 		slli a3 a3 2                 # 4 bytes each
 		jal fread
-		bne a0 a3 eof_or_error
+		bne a0 s3 eof_or_error
 
 		mv a1 s4                     # fclose Arg1: File Descriptor
 		jal fclose

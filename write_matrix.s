@@ -50,18 +50,20 @@ write_matrix:
     li a3 1                      # Read 1 thing
     li a4 4                      # Size of thing
     jal fwrite
-    blt a0 a3 eof_or_error
+    li t0 1
+    blt a0 t0 eof_or_error
     addi s5 s5 4
 
     mv a1 s4                     # Write number of columns
-    mv a2 s5                   #
+    mv a2 s5                     #
     li a3 1                      # Read 1 thing
     li a4 4                      # Size of thing
     jal fwrite
-    blt a0 a3 eof_or_error
+    li t0 1
+    blt a0 t0 eof_or_error
 
     li t0 0                     # Counter
-    mv t1 a1                    # Buffer to read from
+    mv t1 s4                    # Buffer to read from
     mul s3 s2 s3                # Number of elems
 
     mv a1 s4                    # Write number of columns
@@ -69,7 +71,8 @@ write_matrix:
     mv a3 s3                    # Read s3 things
     li a4 4                     # Size of thing
     jal fwrite
-    blt a0 a3 eof_or_error
+    mv t0 s3
+    blt a0 t0 eof_or_error
 
 end:
     mv a1 s4                     # fclose Arg1: File Descriptor

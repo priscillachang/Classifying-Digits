@@ -8,9 +8,6 @@
 
 .globl main
 
-.data
-debug: .asciiz "DEBUG"
-
 .text
 main:
     # =====================================
@@ -183,7 +180,7 @@ error:
     jal exit2
 
 save:
-    addi sp sp -40
+    addi sp sp -36
     sw t0 0(sp)
     sw t1 4(sp)
     sw t2 8(sp)
@@ -191,8 +188,8 @@ save:
     sw t4 16(sp)
     sw t5 20(sp)
     sw t6 24(sp)
-    sw a1 32(sp)
-    sw a2 36(sp)
+    sw a1 28(sp)
+    sw a2 32(sp)
     jr ra
 
 load:
@@ -203,7 +200,7 @@ load:
     lw t4 16(sp)
     lw t5 20(sp)
     lw t6 24(sp)
-    lw a1 32(sp)
-    lw a2 36(sp)
-    addi sp sp 40
+    lw a1 28(sp)
+    lw a2 32(sp)
+    addi sp sp 36
     jr ra
