@@ -43,6 +43,8 @@ write_matrix:
 		mv a1 s0                     # fopen Arg1: Filename
 		li a2 1                      # fopen Arg2: Write Permission
 		jal fopen
+    li t0 -1
+    beq a0 t0 eof_or_error
 		mv s4 a0                     # s4 = File Descriptor
 
     mv a1 s4                     # Write number of rows
